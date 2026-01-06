@@ -1,0 +1,24 @@
+{
+  "name": "@open-audit/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@open-audit/db": "workspace:*",
+    "@open-audit/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@open-audit/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

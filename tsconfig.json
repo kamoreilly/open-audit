@@ -1,0 +1,3 @@
+{
+  "extends": "@open-audit/config/tsconfig.base.json"
+}
