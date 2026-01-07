@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@open-audit/env": "workspace:*",
+    "@radix-ui/react-switch": "^1.2.6",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },

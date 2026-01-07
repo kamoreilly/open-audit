@@ -61,7 +61,7 @@ export function AppSidebar({ className }: SidebarProps) {
 							System
 						</p>
 						<SidebarMenuItem href="/search" icon={<Search />} label="Search" />
-						<SidebarMenuItem href="/team" icon={<Users />} label="Team" />
+						<SidebarMenuItem href="/users" icon={<Users />} label="Team" />
 						<SidebarMenuItem href="/settings" icon={<Settings />} label="Settings" />
 					</div>
 				</nav>

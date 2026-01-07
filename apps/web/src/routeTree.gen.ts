@@ -9,14 +9,45 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsersRouteImport } from './routes/users'
+import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ScheduledRouteImport } from './routes/scheduled'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ChecklistsRouteImport } from './routes/checklists'
 import { Route as AuditsRouteImport } from './routes/audits'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiRpcSplatRouteImport } from './routes/api/rpc/$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const UsersRoute = UsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduledRoute = ScheduledRouteImport.update({
+  id: '/scheduled',
+  path: '/scheduled',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -30,6 +61,11 @@ const LoginRoute = LoginRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChecklistsRoute = ChecklistsRouteImport.update({
+  id: '/checklists',
+  path: '/checklists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuditsRoute = AuditsRouteImport.update({
@@ -56,18 +92,30 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/audits': typeof AuditsRoute
+  '/checklists': typeof ChecklistsRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/reports': typeof ReportsRoute
+  '/scheduled': typeof ScheduledRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/templates': typeof TemplatesRoute
+  '/users': typeof UsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/audits': typeof AuditsRoute
+  '/checklists': typeof ChecklistsRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/reports': typeof ReportsRoute
+  '/scheduled': typeof ScheduledRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/templates': typeof TemplatesRoute
+  '/users': typeof UsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
 }
@@ -75,9 +123,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/audits': typeof AuditsRoute
+  '/checklists': typeof ChecklistsRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/reports': typeof ReportsRoute
+  '/scheduled': typeof ScheduledRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/templates': typeof TemplatesRoute
+  '/users': typeof UsersRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
 }
@@ -86,27 +140,45 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/audits'
+    | '/checklists'
     | '/dashboard'
     | '/login'
     | '/reports'
+    | '/scheduled'
+    | '/search'
+    | '/settings'
+    | '/templates'
+    | '/users'
     | '/api/auth/$'
     | '/api/rpc/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/audits'
+    | '/checklists'
     | '/dashboard'
     | '/login'
     | '/reports'
+    | '/scheduled'
+    | '/search'
+    | '/settings'
+    | '/templates'
+    | '/users'
     | '/api/auth/$'
     | '/api/rpc/$'
   id:
     | '__root__'
     | '/'
     | '/audits'
+    | '/checklists'
     | '/dashboard'
     | '/login'
     | '/reports'
+    | '/scheduled'
+    | '/search'
+    | '/settings'
+    | '/templates'
+    | '/users'
     | '/api/auth/$'
     | '/api/rpc/$'
   fileRoutesById: FileRoutesById
@@ -114,15 +186,56 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuditsRoute: typeof AuditsRoute
+  ChecklistsRoute: typeof ChecklistsRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   ReportsRoute: typeof ReportsRoute
+  ScheduledRoute: typeof ScheduledRoute
+  SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
+  TemplatesRoute: typeof TemplatesRoute
+  UsersRoute: typeof UsersRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiRpcSplatRoute: typeof ApiRpcSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/users': {
+      id: '/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scheduled': {
+      id: '/scheduled'
+      path: '/scheduled'
+      fullPath: '/scheduled'
+      preLoaderRoute: typeof ScheduledRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports': {
       id: '/reports'
       path: '/reports'
@@ -142,6 +255,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checklists': {
+      id: '/checklists'
+      path: '/checklists'
+      fullPath: '/checklists'
+      preLoaderRoute: typeof ChecklistsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/audits': {
@@ -178,9 +298,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuditsRoute: AuditsRoute,
+  ChecklistsRoute: ChecklistsRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   ReportsRoute: ReportsRoute,
+  ScheduledRoute: ScheduledRoute,
+  SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
+  TemplatesRoute: TemplatesRoute,
+  UsersRoute: UsersRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
 }
