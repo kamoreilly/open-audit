@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# AGENTS.md
 
 Working rules for the Open Audit codebase. This document defines exact patterns, conventions, and architectural decisions. Follow these rules to minimize errors and maintain consistency.
 
