@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,19 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { getUser } from "@/functions/get-user";
+
 export const Route = createFileRoute("/scheduled")({
+	beforeLoad: async ({ location }) => {
+		const session = await getUser();
+		if (!session?.user) {
+			throw redirect({
+				to: "/login",
+				search: { redirect: location.href },
+			});
+		}
+		return { session };
+	},
 	component: RouteComponent,
 });
 

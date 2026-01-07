@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import { HeadContent, Outlet, Scripts, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import type { orpc } from "@/utils/orpc";
@@ -46,6 +46,13 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootDocument() {
+  const router = useRouter();
+  const currentPath = router.state.location.pathname;
+
+  // Public routes that should not show the sidebar
+  const publicRoutes = ["/", "/login"];
+  const isPublicRoute = publicRoutes.some(route => currentPath === route);
+
   return (
     <html lang="en" className="dark">
       <head>
@@ -53,8 +60,8 @@ function RootDocument() {
       </head>
       <body>
         <div className="flex min-h-screen">
-          <AppSidebar />
-          <main className="flex-1 md:ml-64">
+          {!isPublicRoute && <AppSidebar />}
+          <main className={`flex-1 ${!isPublicRoute ? "md:ml-64" : ""}`}>
             <Outlet />
           </main>
         </div>

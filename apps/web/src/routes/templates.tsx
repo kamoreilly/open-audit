@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+import { getUser } from "@/functions/get-user";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +27,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/templates")({
+	beforeLoad: async ({ location }) => {
+		const session = await getUser();
+		if (!session?.user) {
+			throw redirect({
+				to: "/login",
+				search: { redirect: location.href },
+			});
+		}
+		return { session };
+	},
 	component: RouteComponent,
 });
 

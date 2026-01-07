@@ -8,18 +8,41 @@ import {
 	Calendar,
 	CheckSquare,
 	BookTemplate,
+	LogOut,
 } from "lucide-react";
 
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { useRouteContext } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
+import { authClient } from "@/lib/auth-client";
 
 interface SidebarProps {
 	className?: string;
 }
 
 export function AppSidebar({ className }: SidebarProps) {
+	const { session } = useRouteContext({ strict: false });
+	const navigate = useNavigate();
+
+	const user = session?.user;
+	const displayName = user?.name ?? "User";
+	const displayEmail = user?.email ?? "";
+	const initials = displayName
+		.split(" ")
+		.map((n) => n[0])
+		.join("")
+		.toUpperCase()
+		.slice(0, 2)
+		|| "U";
+
+	const handleSignOut = async () => {
+		await authClient.signOut();
+		navigate({ to: "/" });
+	};
+
 	return (
 		<aside
 			className={cn(
@@ -69,12 +92,23 @@ export function AppSidebar({ className }: SidebarProps) {
 				<div className="border-t p-3">
 					<div className="flex items-center gap-3 rounded-lg bg-muted p-3">
 						<div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium">
-							UA
+							{initials}
 						</div>
-						<div className="flex flex-col">
-							<span className="text-xs font-medium">User Account</span>
-							<span className="text-muted-foreground text-xs">user@example.com</span>
+						<div className="flex flex-col flex-1 min-w-0">
+							<span className="text-xs font-medium truncate">{displayName}</span>
+							{displayEmail && (
+								<span className="text-muted-foreground text-xs truncate">{displayEmail}</span>
+							)}
 						</div>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="h-8 w-8 shrink-0"
+							onClick={handleSignOut}
+							title="Sign out"
+						>
+							<LogOut className="h-4 w-4" />
+						</Button>
 					</div>
 				</div>
 			</div>
